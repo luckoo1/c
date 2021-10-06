@@ -162,3 +162,5 @@ int main(void)
 
     printf("%d\n", n);
 }
+
+//일반화된(generic linked list)등을 사용할때 주로 사용
