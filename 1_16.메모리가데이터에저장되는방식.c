@@ -1,13 +1,13 @@
-#if 0
+//1-------------------------------------------------
 #include <stdio.h>
 
- int main(void)
- {
-     int n1 = 0x11223344;
-     int n2 = 0x44;
- }
+int main(void)
+{
+    int n1 = 0x11223344;
+    int n2 = 0x44;
+}
 
- /*
+/*
 메모리에 데이터가 저장되는 방식
 
 ▣빅 엔디언(Big-endia)
@@ -37,33 +37,32 @@ ARM,PowerPC,DEC알파,MIPS,PA-RISC,IA-64
 
  PDP-11
  */
-#endif
 
-#if 0
- //엔디언 방식을 조사하는 방법
+//2-------------------------------------------------
+//엔디언 방식을 조사하는 방법
 
 #include <stdio.h>
 
- int main(void)
- {
-     int n1 = 0x11223344;
-     char *p = (char *)&n1;
+int main(void)
+{
+    int n1 = 0x11223344;
+    char *p = (char *)&n1;
 
-     if (*p == 0x11)
-     {
-         printf("Big endian\n");
-     }
-     else if (*p == 0x44)
-     {
-         printf("Little endian\n");
-     }
-     else
-     {
-         printf("Unknown endian\n");
-     }
- }
+    if (*p == 0x11)
+    {
+        printf("Big endian\n");
+    }
+    else if (*p == 0x44)
+    {
+        printf("Little endian\n");
+    }
+    else
+    {
+        printf("Unknown endian\n");
+    }
+}
 
- /*
+/*
 그림필기 넣자
 p가 가리키는 곳이 
 11이면 빅엔디안
