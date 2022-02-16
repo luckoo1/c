@@ -58,7 +58,7 @@ int main(void)
     printf("%d\n", pn2 - pn);
     printf("%d\n", pn2 - pn);
 }
-#endif
+// 3-------------------------------------------------
 
 #include <stdio.h>
 int main(void)
