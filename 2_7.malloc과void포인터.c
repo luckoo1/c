@@ -26,7 +26,7 @@ malloc함수는 인자로 메모리 크기만을 전달 받는다
 
 2.
 malloc함수는 주소만 반환한다
-malloc함수의 반환 타입은 void*이다
+malloc함수의 반환 타입은 void*이다(data type에 대한 정보가 없으니깐)
 */
 
 //1-------------------------------------------------
@@ -35,12 +35,7 @@ malloc함수의 반환 타입은 void*이다
 
 int main(void)
 {
-    void *p1 = malloc(40); //이런 형식으로 받아야한다.
-
-    malloc(sizeof(char) * 40);
-    malloc(sizeof(int) * 10);
-    malloc(sizeof(double) * 5);
-    malloc(sizeof(short) * 10);
+    void *p1 = malloc(40); //이런 형식으로 받는게 정확한 거다.
 }
 
 /*
@@ -69,7 +64,6 @@ int main(void)
     40바이트 할당했는데 int 10개처럼 사용한다.
     하지만 가독성이 떨어지게 된다.
     */
-    malloc(sizeof(short) * 10);
 }
 
 //3-------------------------------------------------
@@ -80,6 +74,19 @@ int main(void)
 
 int main(void)
 {
-    //40바이트를 short의 2차원 배열 4*5
+    //40바이트를 short의 2차원 배열 10*5
     short(*p5)[5] = (short(*)[5])malloc(sizeof(short) * 10);
+
+    /*"short(*p5)[5]" 포인터 타입을 short의 2차원 배열로 적었다.
+    "(short(*)[5])" 캐스팅을 위해 적었다.
+
+    3_1.배열을가리키는포인터.c참고
+    short(*p5)[5]
+    포인터연산을 먼저 적용할 수 있게 괄호를 사용했다
+    "너는 포인터변수구나 그런데 short를 5개짜리 가리키는구나" 판단한다
+
+    위의 경우는 "malloc(sizeof(short) * 10)"로 10byte공간을 할당했는데,
+    그걸 "short(*)[5]"에 넣었다.
+    그래서 총 10byte를 5개 공간에 넣은격이다.
+    */
 }

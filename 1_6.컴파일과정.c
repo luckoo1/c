@@ -11,6 +11,7 @@ int main(void)
 //여기 파일명이 "hello.c"라고 가정하겠다
 
 /*
+그림필기
 1.매크로를 포함 소스코드
 "gcc hello.c -E"하면 전처리(Preprocessor)과정을 거치게 된다.
 "gcc hello.c -E"입력하면 전처리된 소스를 확인할 수 있다.

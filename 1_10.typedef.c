@@ -1,6 +1,6 @@
 //1-------------------------------------------------
 //type에 대한 별칭을 만드는 것
-typedef int DWORD;
+typedef int DWORD; //int 대신에 DWORD라 쓰겠다
 
 int main(void)
 {
@@ -14,14 +14,16 @@ int *p;        //p는 포인터 변수
 int x[3];      //x는 배열변수
 void foo(int); //foo는 함수
 
-//2. 위에것을 그대로 복사해서 앞에 typedef를 붙였다
+//2.위에것을 그대로 복사해서 앞에 typedef를 붙였다
+
+//변수자리에 있는 심볼을 변수가 아닌 type로 만들어 달라는 뜻이다.
 typedef int n;
 typedef int *p;
 typedef int x[3];
 typedef void foo(int);
-//typedef에 대한 의미
-//★변수자리에 있던 심볼이 변수가 아닌 타입이 된다.
-
+/*typedef에 대한 의미
+  ★변수자리에 있던 심볼이 변수가 아닌 타입이 된다.*/
+ 
 //3.변수자리에 있는걸 타입으로 바꾸자
 typedef int n;         //n은 타입
 typedef int *p;        //p는 포인터 타입

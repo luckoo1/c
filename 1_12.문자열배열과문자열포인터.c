@@ -6,10 +6,11 @@ int main(void)
     char *s2 = "Hello";
 
     *s1 = 'A';
-    //*s2 = 'A';
+    *s2 = 'A';
 
     printf("%s\n", s1);
     printf("%s\n", s2);
+    //에러가 어디서 발생할까?
 }
 //그림필기
 /*
@@ -38,6 +39,9 @@ const char상태에서
 */
 
 /*
+결론
 문자열을 포인터를 만들때는 char*가 아닌
 const char*를 사용하는 것이 좋다.
 */
+
+// "2_12.const와문자열.c"참조
