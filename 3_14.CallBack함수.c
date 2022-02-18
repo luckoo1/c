@@ -32,14 +32,13 @@ int main(void)
         return;
     }
     printf("World\n");
-
     //프로그램이 종료되기 전에 foo함수를 반드시 호출하고 싶다
     foo();
 }
 
 //3-------------------------------------------------
 #include <stdio.h>
-#include <stdlib.h>
+#include <stdlib.h> //atexit()
 
 void foo(void)
 {
@@ -52,7 +51,7 @@ int main(void)
     //atexit(foo);이렇게 사용해도 된다.
     /*
     C언어 표준에 atexit함수가 있다
-    프로그램이 종료되기 이전에 foo함수를 호출한다.
+    프로그램이 종료되기 이전에 "foo함수"를 호출한다.
     */
     printf("Hello\n");
     printf("World\n");
@@ -61,7 +60,7 @@ int main(void)
 /*
 1.
 atexit()표준함수
-인자로 함수(주소)를 받아서 프로그램이 종료되기 전에 함수를 호출해준다.\
+인자로 함수(주소)를 받아서 프로그램이 종료되기 전에 함수를 호출해준다.
 
 2.
 callback함수
@@ -69,7 +68,7 @@ callback함수
 사용자가 만든함수(함수 주소)를 시스템에 등록하면 시스템은 주어진 조건을 만족할때 해당함수를 호출한다.
 
 3.
-void atexit(void (*f)(void))
+void atexit(void (*f)(void)) //반환값이 void, 인자도 void
 {
 }
 atexit()표준함수는 위와 같은 모양으로 생겼다.
