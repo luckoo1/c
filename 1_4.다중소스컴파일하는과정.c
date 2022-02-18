@@ -10,7 +10,7 @@ int main(void)
     cnt = 10; //error cnt는 다른파일에 있다.
     goo();
 }
-
+-----------------------------------------
 #include "foo.h"
 
 int main(void)
