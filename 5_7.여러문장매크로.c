@@ -7,7 +7,6 @@
 
 int main(void)
 {
-    if (0)
         PRESS_ENTER_KEY();
     printf("end main\n");
 }
@@ -18,33 +17,45 @@ int main(void)
 Backslash 뒤에 공백등의 문자가 있는 경우 에러가 발생하는 경우가 있다.
 */
 
-/*
-문제점 : if문에서 사용시 버그 발생
-============================
-if (0)
-    PRESS_ENTER_KEY()
-printf("end main\n");
-============================
+// 2-------------------------------------------------
+//문제점 : if문에서 사용시 버그 발생할수 있다.
+#include <stdio.h>
 
-위의 코드에서 바로 end main이 나오지 않고 엔터 눌러야지 나온다.
+#define PRESS_ENTER_KEY()      \
+    printf("press enter key"); \
+    getchar();
+
+int main(void)
+{
+    if (0)
+        PRESS_ENTER_KEY()
+    printf("end main\n");
+}
+//위의 코드에서 바로 end main이 나오지 않고 엔터 눌러야지 나온다.
+//즉 if(0)이 작동을 안하는 거다.
+
+
+/*
 전처리를 해보면
 ============================
 if (0)
     printf("press enter key"); getchar();
 printf("end main\n");
 ============================
+중괄호가 없으니깐 한문장만 if문에 들어가는 것이 된다.
+
 이런 형식인데 결국에는
 ============================
 if (0)
-    printf("press enter key"); 
+    printf("press enter key");
 
 getchar();
 printf("end main\n");
 ============================
-이런모양이 되어서 그렇다.
+이런모양이 된다.
 */
 
-//2-------------------------------------------------
+//3-------------------------------------------------
 #include <stdio.h>
 
 #define PRESS_ENTER_KEY()          \
@@ -82,10 +93,11 @@ int main(void)
     printf("end main\n");
 }
 /*
+전처리를 해보면
 ============================
 if (0)
 {
-    printf("press enter key"); 
+    printf("press enter key");
     getchar();
 };
 else

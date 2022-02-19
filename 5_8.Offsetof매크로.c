@@ -28,7 +28,7 @@ int main(void)
 int main(void)
 {
     int *p = (int *)1000;
-
+    *p = 100; // runtime error
     printf("%p\n", p);
     //내가 지정한 주소를 출력하려 한다
     //출력에는 지장이 없다. => 00000000
@@ -53,10 +53,11 @@ typedef struct People PEOPLE;
 
 int main(void)
 {
+    //메모리그림 그림필기 참조
     PEOPLE pe;
     printf("%p\n", &pe);       //0x1000
     printf("%p\n", &(pe.age)); //0x1008
-    //메모리그림 그림필기 참조
+    
     PEOPLE *p = 0;
     printf("%p\n", p); //0
     p->age = 10;       //runtime error(내가 지정한 메모리에 값을 넣으려고 했음)
@@ -66,6 +67,7 @@ int main(void)
 
 /*
 답은 8이 나온다
+출력은 에러가 아니다.
 age가 people 구조체로 부터 8바이트 떨어져있다는 사실을 바로 알 수 있다.
 */
 
@@ -96,6 +98,7 @@ int main(void)
 
     &(((PEOPLE *)0)->age)
     접근한것의 주소를 구해보자
+    8이 나올건데 주소값으로 나올거다.
 
     (size_t)&(((PEOPLE *)0)->age)
     unsigned int로 강제로 캐스팅해서 "size_t n"에 넣어보자
@@ -114,26 +117,21 @@ size_t n = (size_t) & (((PEOPLE *)0)->age);
 
 #define offsetof(TYPE, MEMBER) \
     (size_t) & (((TYPE *)0)->MEMBER);
-
+//TYPE : 구조체이름
+//MEMBER : 멤버이름
 struct People
 {
     char name[8];
     int age;
     int height;
 };
-typedef struct People PEOPLE;
+typedef struct People PEOPLE; // PEOPLE구조체에서 age가 얼마나 떨어져 있는지 알고 싶다.
 
 int main(void)
 {
-    PEOPLE *p = 0;
-    size_t n = offsetof(PEOPLE, age);
-
+    int n = offsetof(PEOPLE, age);
     printf("%d\n", n);
 }
-
-/*
-PEOPLE구조체에서 age가 얼마나 떨어져 있는지 알고 싶다.
-*/
 
 /*
 offsetof 매크로
@@ -143,7 +141,7 @@ offsetof 매크로
 <stddef.h>헤더 파일에서 C표준으로 제공한다.
 */
 
-//5-------------------------------------------------
+//6-------------------------------------------------
 #include <stdio.h>
 #include <stddef.h>
 
@@ -157,7 +155,6 @@ typedef struct People PEOPLE;
 
 int main(void)
 {
-    PEOPLE *p = 0;
     size_t n = offsetof(PEOPLE, age);
 
     printf("%d\n", n);
