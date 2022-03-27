@@ -1,4 +1,2 @@
-a.exe
-*.s
-*.o
-0.note.c
+*.exe
+.vscode
