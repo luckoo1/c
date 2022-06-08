@@ -81,6 +81,7 @@ void foo()
 
 
 // 4-------------------------------------------------
+//3번의 코드는 아래처럼 된다
 "linkage.h"----------------------------------
 static void goo(){};
 static int cnt = 0;
@@ -110,7 +111,7 @@ gcc main.c linkage.c
 */
 
 /*
-결론
+3번과 4번의 결론
 External linkage을 가지는 심볼은 헤더파일에 넣으면 안된다
 Internal linkage를 가지는 심볼은 헤더에 넣을 수 있다.
 */
@@ -144,7 +145,7 @@ void foo()
 
 // 6-------------------------------------------------
 "linkage.h"----------------------------------
-const MAX 100 //이걸 추가했다.
+const int MAX = 100; //이걸 추가했다.
 static void goo(){};
 static int cnt = 0;
 "linkage.c"---------------------------------
@@ -170,9 +171,34 @@ C++에서 const만들어냈고 C가 그걸 받아들였다.
 컴파일러가 취급하는거니깐 훨씬 좋다고 생각했다.
 C언어에서 const는 external linkage니깐 컴파일이 안된다.
 MAX가 양쪽에 있다고 뜬다.
-C++에서는 const는 internal linkage니깐 컴파일이 안된다.
+C++에서는 const는 internal linkage니깐 컴파일이 된다.
 */
 
+
+//C언어
+"linkage.h"----------------------------------
+const int MAX = 100; //이걸 추가하면
+static void goo(){};
+static int cnt = 0;
+"linkage.c"---------------------------------
+#include "linkage.h"
+const int MAX = 100; //이렇게 추가됨(external이니깐)
+void foo()
+{
+    int n = MAX; 
+    goo();
+    cnt = 20;
+}
+"main.c"--------------------------------
+#include "linkage.h"
+const int MAX = 100; //이렇게 추가됨(external이니깐)
+void foo()
+{
+    int n = MAX;
+    goo();
+    cnt = 20;
+}
+-----------------------------------------
 /*
 결론
 C언어에서는 const상수를 소스파일에 놓아야한다.
