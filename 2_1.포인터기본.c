@@ -12,7 +12,7 @@ int main(void)
 
     printf("%p\n", &p);
     printf("%p\n", p);
-    printf("%p\n", *p);
+    printf("%d\n", *p);
     printf("%p\n", sizeof(p));
 }
 
