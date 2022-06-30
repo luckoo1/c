@@ -15,17 +15,17 @@ int main(void)
 /*
 *를 기준으로 const의 위치 조사
 
-▣상수를 가리키는 포인터
+▣상수를 가리키는 포인터(Pointer to constant)
 const int *p1 = &n;
-p1자체는 const가 아닌데 나를 따라가보면 const int가 있다.
+나를 따라가보면 const int가 있다.
 즉 가리키는 대상체가 const
+p1자체는 const가 아니다.
 
-▣상수포인터
+▣상수포인터(Constant Pointer)
 int *const p2 = &n;
-p2자체가 const인데 나를 따라가면 int가 있다.
-P2가 const
-P2를 따라가면 int가 있다.
 P2자체가 const
+P2를 따라가면 int가 있다.
+p2자체가 const인데 나를 따라가면 int가 있다.
 */
 // 2-------------------------------------------------
 #include <stdio.h>
@@ -81,13 +81,13 @@ const int *p1 = &n;와 같은거다.
 정리
 ★포인터 변수 선언시 const해석 방법
 포인터 연산자(*)를 기준으로 const의 위치가 왼쪽에 있는 경우
+상수를 가리키는 포인터(Pointer to constant)
 const int *p1;
 int const *p1;
-대상체가 const
-상수를 가리키는 포인터
+가리키는 대상체가 const
 
 포인터 연산자(*)를 기준으로 const의 위치가 오른쪽에 있는 경우
+상수포인터(Constant Pointer)
 int* const p2;
 포인터 자체가 const
-상수 포인터
 */

@@ -52,16 +52,24 @@ int main(void)
 
     WHERE_CONST p3 = &n1;
 
-    p3 = &n2;
-    *p3 = 20;
+    p3 = &n2; //?
+    *p3 = 20; //?
+    /*
+    즉 p3가 const일지
+    p3를 따라가면 const일지
+    */
 }
 
 /*
+그대로 풀어냈다.
 typedef const int* WHERE_CONST;로생각해서
 따라가면 const int라고 생각할수 있다.
+
 하지만 이건
 typedef const PINT WHERE_CONST;
 PINT자체가 const란 말이다.
+
+즉 상수포인터다.
 
 p3 = &n2;//error
 *p3 = 20;//OK

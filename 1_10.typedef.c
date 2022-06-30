@@ -42,7 +42,9 @@ typedef int AR2[2][3];
 int main(void)
 {
     AR x = {1, 2};                  //AR은 int[2]에 대한 type
+    //int x[2] = {1,2};
     AR2 y = {{1, 2, 3}, {4, 5, 6}}; //AR2는 int [2][3]에 대한 type
+    //int y[2][3] = {{1, 2, 3}, {4, 5, 6}};
 }
 /*
 정리

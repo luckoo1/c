@@ -37,6 +37,8 @@ void swap(void *x, void *y)
     메모리의 내용을 접근할 수 있어야 한다.
     void*를 다른 타입(char*)로 캐스팅 한 후에 사용한다.
     가장작은 type인 "char*"를 사용했다.
+    char *pc1 = (char *)x;
+    char *pc2 = (char *)y;
     */
     char *pc1 = (char *)x;
     char *pc2 = (char *)y;
@@ -66,7 +68,7 @@ int main(void)
     10.000000, 20.000000가 나온다.
     결국 안바뀌고 그대로나온다(그림필기 참조)
     double은 8바이트인데 char는 1바이트다
-    pc1과 pc2는 한바이트만 가리키니깐 한 바이트면 교환된다.
+    pc1과 pc2는 한바이트만 가리키니깐 한 바이트만 교환된다.
     */
 }
 
@@ -75,15 +77,17 @@ int main(void)
 
 /*
 1.
-요소의 주소뿐만 아니라 요소의 크기도 같이 전달한다
-요소의 크기만큼 반복해서 교환한다
+요소의 주소(*x,*y)뿐만 아니라 요소의 크기(es)도 같이 전달한다
 */
 void swap(void *x, void *y, size_t es)
 {
 
     char *pc1 = (char *)x;
     char *pc2 = (char *)y;
-    //루프를 돌면서 다 바꾼다
+    /*
+    2.루프를 돌면서 다 바꾼다.
+    요소의 크기만큼 반복해서 교환한다
+    */
     for (int i = 0; i < es; i++)
     {
         char temp = pc1[i];
