@@ -51,8 +51,8 @@ int main(void)
 
 //3-------------------------------------------------
 
-typedef int AR[2];     //배열 타입
-typedef int (*PAR)[2]; //배열을 가리키는 포인터 타입
+typedef int AR[2];     //int[2]배열 타입
+typedef int (*PAR)[2]; //int[2]배열을 가리키는 포인터 타입
 
 int main(void)
 {
