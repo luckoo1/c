@@ -13,14 +13,12 @@ struct _alloc_info
 typedef struct _alloc_info ALLOC_INFO;
 
 ALLOC_INFO info[1000]; // 1000개의 메모리 할당 정보 기록할 수 있다.
-
 int cnt = 0;
 
 void *debug_malloc(size_t sz, const char *file, const char *func, int line)
 {
     //메모리할당에 대한 정보들을 배열에 기록하자.
     void *p = malloc(sz);
-    //아래같이 하면 0번째꺼는 info[0]위치에 들어간다.
     strcpy(info[cnt].file, file);
     strcpy(info[cnt].func, func);
     info[cnt].line = line;
@@ -43,8 +41,8 @@ void debug_free(void *addr)
             /*
             링크드리스트면 바로 제거하면되지만
             배열이므로 제일 뒤에 있는 요소를
-            제거되는 자리에 매꿀거다
-            i번째 제거
+            제거되는 자리에 매꾸면서 i번째를 제거하는 효과를 냈다.
+            
             만약 크기가 10짜리 배열인데 5번째가 제거되었다.
             그럼 5번째자리를 비우고 10번째자리에 있는 요소를 5번째 자리에 넣는거다.
             그리고 10번째 배열의 기록을 삭제

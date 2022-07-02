@@ -16,7 +16,6 @@ int Add(int a, int b)
 int main(void)
 {
 }
-
 //-------------------------------------------------
 #include <stdio.h>
 
@@ -35,6 +34,8 @@ int(   *f     )(int,int);
 int(  *goo()  )(int,int);
 f 자리에 goo()넣은 격이다.(int(*f)(int,int); => int(*goo())(int,int);)
 
+int(*     goo()     )(int,int);) <- goo()가 사이에 있다.
+
 goo()라는 함수가 반환값이 int(*)(int,int) type다라는 뜻이다.
 */
 int (*goo())(int, int)
@@ -52,6 +53,5 @@ int main(void)
     뒤에 인자를 적어줘야한다.
     goo()(1,2);
     */
-    goo()(1, 2); //이런 모양으로 불러야한다.
-                 // Add(1,2)와 동일한 모양
+    goo()(1, 2); // Add(1,2)와 동일한 모양
 }

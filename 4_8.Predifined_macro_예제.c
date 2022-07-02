@@ -13,6 +13,7 @@ int main(void)
     free(p3);
 }
 //free를 재대로 활용하지 못하면 메모리 누수현상이 생긴다.
+//메모리 해지를 자동으로 해주는 프로그램을 만들어보자.
 
 //2-------------------------------------------------
 //아래와 같은 방식으로 해결하려 했다.
@@ -83,6 +84,7 @@ int main(void)
     free(p2);
     free(p3);
 }
+//cnt로 메모리 관리가 용이해짐
 
 // 4-------------------------------------------------
 //1.어느파일에 어떤함수에 몇번째 줄에서 malloc했는지에 대한 구체적 정보를 얻고 싶었다.
@@ -108,7 +110,7 @@ void debug_free(void *addr)
     printf("debug_free\n");
     --cnt;
 }
-// 3.debug_malloc을 할때 자동으로 넘겨주자
+// 3.debug_malloc을 할때 자동으로 " __FILE__, __func__, __LINE__"를 넘겨주자
 #define malloc(sz) \
     debug_malloc(sz, __FILE__, __func__, __LINE__)
 #define free(addr) debug_free(addr)
@@ -116,7 +118,8 @@ void debug_free(void *addr)
 int main(void)
 {
     int *p1 = (int *)malloc(sizeof(int) * 10);
-    //4.(int *)debug_malloc(sz, __FILE__, __func__, __LINE__)으로 macro 치환됨
+    //4.
+    //위의 코드는 "(int *)debug_malloc(sz, __FILE__, __func__, __LINE__)"으로 macro 치환됨
     int *p2 = (int *)malloc(sizeof(int) * 10);
     int *p3 = (int *)malloc(sizeof(int) * 10);
 
