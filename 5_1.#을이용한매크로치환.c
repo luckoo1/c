@@ -58,6 +58,7 @@ int main(void)
     "__LINE__"
 }
 이런 모양으로 되어있다.
+바로 문자열을 풀어준 모양으로 되어있다.
 */
 
 // 4-------------------------------------------------
@@ -66,8 +67,7 @@ int main(void)
 #define TOSTR2(x) #x
 #define TOSTR(x) TOSTR2(x)
 
-    int
-    main(void)
+int main(void)
 {
     TOSTR(AAA);      //"AAA"
     TOSTR(MAX);      //"256"
@@ -75,11 +75,9 @@ int main(void)
 }
 
 /*
-"#define TOSTR(x) TOSTR2(x)""
-앞에것을 뒤에것으로 바꾼다고 생각했었음
-
 "TOSTR(__LINE__) TOSTR2(x)"으로 들어와서
-뒤쪽에 TOSTR2(x)로 넘어갈때 
+뒤쪽에 TOSTR2(x)로 넘어갈때 59로 바뀌어서 들어간다.
+
 여기에는 "#x"모양이 아니니깐 TOSTR2(59)로 바뀐다
 
 매크로 심볼의 값을 문자열로 치환하려면 2번의 매크로 치환을 해야한다.
