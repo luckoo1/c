@@ -1,17 +1,8 @@
-//1-------------------------------------------------
 #include <stdio.h>
-int main(void)
+extern int num1; 
+int main()
 {
-    int n = 10;
+    printf("%d\n", num1);    // 전역 변수 num1의 값 출력. 컴파일 에러
 
-    printf("%d\n", n);
-    printf("%d\n", sizeof(n));
-    printf("%p", &n);
-
-    int *p = &n; //포인터 변수 p
-
-    printf("%p\n", &p);
-    printf("%p\n", p);
-    printf("%d\n", *p);
-    printf("%p\n", sizeof(p));
+    return 0;
 }

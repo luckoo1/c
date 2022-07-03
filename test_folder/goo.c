@@ -1,6 +1,8 @@
-#define MAX 100
-int cnt = 0;
-void goo(){ }
+#include <stdio.h>
 
-static void hoo(){}
-static int cnt = 0;
+int num1 = 10;
+
+void printNumber()
+{
+    printf("%d\n", num1);    // 전역 변수 num1의 값 출력
+}
