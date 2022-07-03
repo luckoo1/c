@@ -21,8 +21,9 @@ int main(void)
 }
 
 //2-------------------------------------------------
+//"static_assert" 만들어보자
 #include <stdio.h>
-#include <assert.h>
+//#include <assert.h>
 
 #define static_assert(expr) \
     char __static_assert_failed[(expr) ? 1 : -1];
@@ -45,6 +46,10 @@ int main(void)
 /*
 컴파일 시간에 값의 유효성을 확인하기 위해 사용
 배열의 크기는 음수가 될 수 없다는 특징을 활용해서 만드는 경우가 많다.
+
+#define static_assert(expr) \
+    char __static_assert_failed[(expr) ? 1 : -1];
+이것도 유명한 표현법이다.
 
 C11부터는 C표준에서 _Static_assert라는 이름을 제공
 _Static_assert(expr,"message");

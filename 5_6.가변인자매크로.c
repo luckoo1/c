@@ -7,6 +7,11 @@
 #define TRACE(msg)
 #endif
 
+/*
+DEBUG가 정의되어 있지 않으면
+TRACE() 사용해도 공백으로 치환되어서 아무일도 발생하지 않는다
+*/
+
 int main(void)
 {
     int n1 = 10;

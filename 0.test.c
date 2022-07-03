@@ -1,11 +1,18 @@
 #include <stdio.h>
-#define TOSTR2(x) #x
-#define TOSTR(x) TOSTR2(x)
 
-#define VAR(TYPE, NAME) TYPE NAME TOSTR(__LINE__)
+#define PRESS_ENTER_KEY()          \
+    {                              \
+        printf("press enter key"); \
+        getchar();                 \
+    }
+
 int main(void)
 {
-    VAR(int, n) = 6; 
-    printf("%d",n11);
+    if (0)
+        PRESS_ENTER_KEY();
+    else
+    {
+    }
 
+    printf("end main\n");
 }

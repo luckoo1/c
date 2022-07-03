@@ -20,8 +20,8 @@ int main(void)
     //함수들을 인자값의 수만큼 호출한다.
 }
 /*
-FOREACH()는 첫번째 인자로 함수를 받고
-그 뒤로부터는 인자값들을 받는다.
+FOREACH()는 첫번째 인자로 함수(show)를 받고
+그 뒤로부터는 인자값(1,2,3..)들을 받는다.
 */
 
 //2-------------------------------------------------
@@ -45,6 +45,7 @@ FE_2()은 인자를 두개 줄거다 //show(1),show(2)
 이러한 의미로 만들어보겠다.
 */
 // 3-------------------------------------------------
+
 #include <stdio.h>
 #define FE_1(FUNC, X) FUNC(X)
 #define FE_2(FUNC, X, Y) \
@@ -54,7 +55,19 @@ FE_2()은 인자를 두개 줄거다 //show(1),show(2)
     FUNC(X);                \
     FUNC(Y);                \
     FUNC(Z)
-//위와 같이 적는건 비효율이다.
+
+/*
+#define FE_1(FUNC, X) FUNC(X)
+FUNC로 show를 받았고 X로 1을 받았다.
+그래서 뒤에 "FUNC(X)"에서 "show(1)"이 된다.
+#define FE_2(FUNC, X, Y) \
+    FUNC(X);             \
+    FUNC(Y)
+FUNC로 show를 받았고 X로 1을 Y로 2를 받았다.
+그래서 뒤에 "FUNC(X)"에서 "show(1)"로 한번 부르고
+"show(2)"로 또 불렀다.
+*/
+//그런데, 위와 같이 적는건 비효율이다.
 
 void show(int a)
 {
@@ -73,22 +86,10 @@ int main(void)
 //4-------------------------------------------------
 #include <stdio.h>
 #define FE_1(FUNC, X) FUNC(X);
-
-#define FE_2(FUNC, X, ...) \
-    FUNC(X);               \
-    FE_1(FUNC, __VA_ARGS__)
-
-#define FE_3(FUNC, X, ...) \
-    FUNC(X);               \
-    FE_2(FUNC, __VA_ARGS__)
-
-#define FE_4(FUNC, X, ...) \
-    FUNC(X);               \
-    FE_3(FUNC, __VA_ARGS__)
-
-#define FE_5(FUNC, X, ...) \
-    FUNC(X);               \
-    FE_4(FUNC, __VA_ARGS__)
+#define FE_2(FUNC, X, ...) FUNC(X); FE_1(FUNC, __VA_ARGS__)
+#define FE_3(FUNC, X, ...) FUNC(X); FE_2(FUNC, __VA_ARGS__)
+#define FE_4(FUNC, X, ...) FUNC(X); FE_3(FUNC, __VA_ARGS__)
+#define FE_5(FUNC, X, ...) FUNC(X); FE_4(FUNC, __VA_ARGS__)
 
 void show(int a)
 {
@@ -108,22 +109,10 @@ int main(void)
 //위의 코드 해석
 #include <stdio.h>
 #define FE_1(FUNC, X) FUNC(X);
-
-#define FE_2(FUNC, X, ...) \
-    FUNC(X);               \
-    FE_1(FUNC, __VA_ARGS__) //함수와 가변인자의 나머지 내용을 "__VA_ARGS__"로 받음
-
-#define FE_3(FUNC, X, ...) \
-    FUNC(X);               \
-    FE_2(FUNC, __VA_ARGS__)
-
-#define FE_4(FUNC, X, ...) \
-    FUNC(X);               \
-    FE_3(FUNC, __VA_ARGS__)
-
-#define FE_5(FUNC, X, ...) \
-    FUNC(X);               \
-    FE_4(FUNC, __VA_ARGS__)
+#define FE_2(FUNC, X, ...) FUNC(X); FE_1(FUNC, __VA_ARGS__)
+#define FE_3(FUNC, X, ...) FUNC(X); FE_2(FUNC, __VA_ARGS__)
+#define FE_4(FUNC, X, ...) FUNC(X); FE_3(FUNC, __VA_ARGS__)
+#define FE_5(FUNC, X, ...) FUNC(X); FE_4(FUNC, __VA_ARGS__)
 
 void show(int a)
 {
@@ -140,16 +129,12 @@ int main(void)
 }
 /*
 FE_5호출하면
-#define FE_5(FUNC, X, ...) \
-    FUNC(X);               \
-    FE_4(FUNC, __VA_ARGS__)
+#define FE_5(FUNC, X, ...) FUNC(X); FE_4(FUNC, __VA_ARGS__)
 가서 FUNC(1)호출하고
 FE_4(FUNC,2,3,4,5)호출된다.
 
 그럼
-#define FE_4(FUNC, X, ...) \
-    FUNC(X);               \
-    FE_3(FUNC, __VA_ARGS__)
+#define FE_4(FUNC, X, ...) FUNC(X); FE_3(FUNC, __VA_ARGS__)
 가서 FUNC(2)호출하고
 FE_2(FUNC,3,4,5)호출된다.
 */
@@ -164,13 +149,9 @@ FE_3(show, 1, 2, 3);//NG
 
 FE_3에서 에러가 발생한다.
 
-#define FE_2(FUNC, X, ...) \
-    FUNC(X);               \
-    FE_1(FUNC, __VA_ARGS__)
+#define FE_2(FUNC, X, ...) FUNC(X); FE_1(FUNC, __VA_ARGS__)
 
-#define FE_3(FUNC, X, ...) \
-    FUNC(X);               \
-    FE_2(FUNC, __VA_ARGS__)
+#define FE_3(FUNC, X, ...) FUNC(X); FE_2(FUNC, __VA_ARGS__)
 
 FE_3(show, 1, 2, 3);
 
@@ -189,25 +170,12 @@ X가 2가되고 3이 ...에 온다
 #include <stdio.h>
 
 #define FE_1(FUNC, X) FUNC(X);
+#define FE_2(FUNC, X, ...) FUNC(X); FE_1(FUNC, __VA_ARGS__)
+#define FE_3(FUNC, X, ...) FUNC(X); FE_2(FUNC, __VA_ARGS__)
+#define FE_4(FUNC, X, ...) FUNC(X); FE_3(FUNC, __VA_ARGS__)
+#define FE_5(FUNC, X, ...) FUNC(X); FE_4(FUNC, __VA_ARGS__)
 
-#define FE_2(FUNC, X, ...) \
-    FUNC(X);               \
-    FE_1(FUNC, __VA_ARGS__)
-
-#define FE_3(FUNC, X, ...) \
-    FUNC(X);               \
-    FE_2(FUNC, __VA_ARGS__)
-
-#define FE_4(FUNC, X, ...) \
-    FUNC(X);               \
-    FE_3(FUNC, __VA_ARGS__)
-
-#define FE_5(FUNC, X, ...) \
-    FUNC(X);               \
-    FE_4(FUNC, __VA_ARGS__)
-
-#define FOREACH_N(N, FUNC, ...) \
-    FE_##N(FUNC, __VA_ARGS__)     //수정
+#define FOREACH_N(N, FUNC, ...) FE_##N(FUNC, __VA_ARGS__)
 
 void show(int a)
 {
@@ -221,31 +189,23 @@ int main(void)
 //문제없이 작동한다!
 
 //5-------------------------------------------------
+/*
+하지만 또 문제가 발생할수 있다.
+#define CNT 5
+사용하는 경우다.
+*/
+
 #include <stdio.h>
 
 #define FE_1(FUNC, X) FUNC(X);
+#define FE_2(FUNC, X, ...) FUNC(X); FE_1(FUNC, __VA_ARGS__)
+#define FE_3(FUNC, X, ...) FUNC(X); FE_2(FUNC, __VA_ARGS__)
+#define FE_4(FUNC, X, ...) FUNC(X); FE_3(FUNC, __VA_ARGS__)
+#define FE_5(FUNC, X, ...) FUNC(X); FE_4(FUNC, __VA_ARGS__)
 
-#define FE_2(FUNC, X, ...) \
-    FUNC(X);               \
-    FE_1(FUNC, __VA_ARGS__)
+#define FOREACH_N(N, FUNC, ...) FE_##N(FUNC, __VA_ARGS__)
 
-#define FE_3(FUNC, X, ...) \
-    FUNC(X);               \
-    FE_2(FUNC, __VA_ARGS__)
-
-#define FE_4(FUNC, X, ...) \
-    FUNC(X);               \
-    FE_3(FUNC, __VA_ARGS__)
-
-#define FE_5(FUNC, X, ...) \
-    FUNC(X);               \
-    FE_4(FUNC, __VA_ARGS__)
-
-#define FOREACH_N(N, FUNC, ...) \
-    FE_##N(FUNC, __VA_ARGS__)
-
-#define CNT 5  //수정
-
+#define CNT 5
 void show(int a)
 {
     printf("show : %d\n", a);
@@ -272,33 +232,19 @@ FOREACH_N()함수에서 N자리에 CNT로 왔기 때문이다.
 #include <stdio.h>
 
 #define FE_1(FUNC, X) FUNC(X);
-
-#define FE_2(FUNC, X, ...) \
-    FUNC(X);               \
-    FE_1(FUNC, __VA_ARGS__)
-
-#define FE_3(FUNC, X, ...) \
-    FUNC(X);               \
-    FE_2(FUNC, __VA_ARGS__)
-
-#define FE_4(FUNC, X, ...) \
-    FUNC(X);               \
-    FE_3(FUNC, __VA_ARGS__)
-
-#define FE_5(FUNC, X, ...) \
-    FUNC(X);               \
-    FE_4(FUNC, __VA_ARGS__)
+#define FE_2(FUNC, X, ...) FUNC(X); FE_1(FUNC, __VA_ARGS__)
+#define FE_3(FUNC, X, ...) FUNC(X); FE_2(FUNC, __VA_ARGS__)
+#define FE_4(FUNC, X, ...) FUNC(X); FE_3(FUNC, __VA_ARGS__)
+#define FE_5(FUNC, X, ...) FUNC(X); FE_4(FUNC, __VA_ARGS__)
 
 //아래 두줄을 추가해야한다
 #define CONCATENAT(arg1, arg2) CONCATENAT1(arg1, arg2) //인자로 받아서
 #define CONCATENAT1(arg1, arg2) arg1##arg2  //여기서 합친다.
 
-#define CNT 5
-
-#define FOREACH_N(N, FUNC, ...) \
-    CONCATENAT(FE_, N)(FUNC, __VA_ARGS__)
+#define FOREACH_N(N, FUNC, ...) CONCATENAT(FE_, N)(FUNC, __VA_ARGS__)
     // FE_N(FUNC, __VA_ARGS__)와 같은 모양이 된다.
 
+#define CNT 5
 void show(int a)
 {
     printf("show : %d\n", a);
@@ -311,7 +257,11 @@ int main(void)
 
 // 7-------------------------------------------------
 //그림필기
-//가변인자 매크로에 전달된 인자의 개수를 구하는 기술
+/*매번 N을 보내줘야하는게 불편하다.
+FOREACH(show,1,2,3,4,5);
+이렇게만 보내도 인자의 수가 몇개인지 알수있게 하고싶다.
+가변인자 매크로에 전달된 인자의 개수를 구하는 기술
+*/
 
 #include <stdio.h>
 
@@ -326,15 +276,15 @@ __VA_ARGS__에 1,2,3이 온다
 #define COUNT_IMP(_1, _2, _3, _4, _5, N, ...) N 이걸 살펴보면
 COUNT_IMP의 숫자(_1, _2, _3, _4, _5, N, ...)들이 뭐랑 매핑되는지 보자
 
-_1 : 1(#define COUNT(...) COUNT_IMP("__VA_ARGS__", 5, 4, 3, 2, 1, 0))
-_2 : 2(#define COUNT(...) COUNT_IMP("__VA_ARGS__", 5, 4, 3, 2, 1, 0))
-_3 : 3(#define COUNT(...) COUNT_IMP("__VA_ARGS__", 5, 4, 3, 2, 1, 0))
-
-_4 : 5(#define COUNT(...) COUNT_IMP(__VA_ARGS__, "5", 4, 3, 2, 1, 0))
-_5 : 4(#define COUNT(...) COUNT_IMP(__VA_ARGS__, 5, "4", 3, 2, 1, 0))
-N : 3(#define COUNT(...) COUNT_IMP(__VA_ARGS__, 5, 4, "3", 2, 1, 0))
-" "안에 숫자와 매핑되는거다
-
+_VA_ARGS_가 1,2,3이니깐
+COUNT_IMP함수에서
+_1은 1과 매핑
+_2은 2과 매핑
+_3은 3과 매핑
+_4는 5와 매핑
+_5는 5와 매핑
+N은 3과 매핑
+COUNT_IMP은 N을 꺼내는 함수니깐 3이 나오는 거다.
 
 이런형식으로 매핑되어서
 N이 3이 된다.
@@ -353,37 +303,24 @@ int main(void)
 #include <stdio.h>
 
 #define FE_1(FUNC, X) FUNC(X);
+#define FE_2(FUNC, X, ...) FUNC(X); FE_1(FUNC, __VA_ARGS__)
+#define FE_3(FUNC, X, ...) FUNC(X); FE_2(FUNC, __VA_ARGS__)
+#define FE_4(FUNC, X, ...) FUNC(X); FE_3(FUNC, __VA_ARGS__)
+#define FE_5(FUNC, X, ...) FUNC(X); FE_4(FUNC, __VA_ARGS__)
 
-#define FE_2(FUNC, X, ...) \
-    FUNC(X);               \
-    FE_1(FUNC, __VA_ARGS__)
-
-#define FE_3(FUNC, X, ...) \
-    FUNC(X);               \
-    FE_2(FUNC, __VA_ARGS__)
-
-#define FE_4(FUNC, X, ...) \
-    FUNC(X);               \
-    FE_3(FUNC, __VA_ARGS__)
-
-#define FE_5(FUNC, X, ...) \
-    FUNC(X);               \
-    FE_4(FUNC, __VA_ARGS__)
 
 #define CONCATENAT(arg1, arg2) CONCATENAT1(arg1, arg2)
 #define CONCATENAT1(arg1, arg2) arg1##arg2
 
 #define CNT 5
 
-#define FOREACH_N(N, FUNC, ...) \
-    CONCATENAT(FE_, N)          \
-    (FUNC, __VA_ARGS__)
+#define FOREACH_N(N, FUNC, ...) CONCATENAT(FE_, N)(FUNC, __VA_ARGS__)
 
 #define COUNT(...) COUNT_IMP(__VA_ARGS__, 5, 4, 3, 2, 1, 0)
 #define COUNT_IMP(_1, _2, _3, _4, _5, N, ...) N
 
-#define FOREACH(FUNC, ...) \
-    FOREACH_N(COUNT(__VA_ARGS__), FUNC, __VA_ARGS__)
+//이게 최종
+#define FOREACH(FUNC, ...) FOREACH_N(COUNT(__VA_ARGS__), FUNC, __VA_ARGS__)
 
 void show(int a)
 {

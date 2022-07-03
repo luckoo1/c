@@ -82,3 +82,11 @@ int main(void)
 
 매크로 심볼의 값을 문자열로 치환하려면 2번의 매크로 치환을 해야한다.
 */
+
+
+/*
+#define TOSTR2(x) #x
+#define TOSTR(x) TOSTR2(x)
+
+유명한 표현법이다.
+*/

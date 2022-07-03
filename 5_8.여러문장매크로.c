@@ -7,7 +7,7 @@
 
 int main(void)
 {
-        PRESS_ENTER_KEY();
+    PRESS_ENTER_KEY();
     printf("end main\n");
 }
 /*
@@ -18,7 +18,7 @@ Backslash 뒤에 공백등의 문자가 있는 경우 에러가 발생하는 경
 */
 
 // 2-------------------------------------------------
-//문제점 : if문에서 사용시 버그 발생할수 있다.
+//if문에서 사용시 버그 발생할수 있다.
 #include <stdio.h>
 
 #define PRESS_ENTER_KEY()      \
@@ -31,7 +31,7 @@ int main(void)
         PRESS_ENTER_KEY()
     printf("end main\n");
 }
-//위의 코드에서 바로 end main이 나오지 않고 엔터 눌러야지 나온다.
+//위의 코드에서 바로 end main이 바로 나오지 않고 엔터 눌러야지 나온다.
 //즉 if(0)이 작동을 안하는 거다.
 
 
@@ -42,9 +42,9 @@ if (0)
     printf("press enter key"); getchar();
 printf("end main\n");
 ============================
-중괄호가 없으니깐 한문장만 if문에 들어가는 것이 된다.
+중괄호가 없으니깐 한문장(printf("press enter key");만 if문에 들어가는 것이 된다.
 
-이런 형식인데 결국에는
+결국에는
 ============================
 if (0)
     printf("press enter key");
@@ -56,6 +56,7 @@ printf("end main\n");
 */
 
 //3-------------------------------------------------
+//매크로를 if문에서 사용하려면 전체문장을 {}로 묶어라
 #include <stdio.h>
 
 #define PRESS_ENTER_KEY()          \
@@ -70,7 +71,6 @@ int main(void)
         PRESS_ENTER_KEY();
     printf("end main\n");
 }
-//매크로를 if문에서 사용하려면 전체문장을 {}로 묶어라
 
 //3-------------------------------------------------
 //그런데 if~else문에서 사용시 에러가 발생

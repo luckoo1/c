@@ -39,14 +39,14 @@ int main(void)
 //3-------------------------------------------------
 //직접만들어 보자
 #include <stdio.h>
+//#include <assert.h>
 
 #define assert(expr)                                                                   \
     if (!(expr))                                                                       \
     {                                                                                  \
         printf("Assertion Failed: %s, file %s, line %d\n", #expr, __FILE__, __LINE__); \
-        abort();                                                                       \
     }
-//abort()는 출력을 멈추는 표준함수라고 했는데, 내가한 컴파일러에서는 출력을 멈추지 않았다. 그냥 에러뜸
+
 void foo(int age)
 {
     assert(age > 0);
@@ -56,8 +56,3 @@ int main(void)
 {
     foo(-10);
 }
-
-/*
-<assert.h>
-실행시간에 값의 유효성을 확인할 수 있다.
-*/
