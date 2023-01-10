@@ -1,18 +1,12 @@
 #include <stdio.h>
-
-#define PRESS_ENTER_KEY()          \
-    {                              \
-        printf("press enter key"); \
-        getchar();                 \
-    }
-
-int main(void)
+typedef unsigned char uint8;
+int main()
 {
-    if (0)
-        PRESS_ENTER_KEY();
-    else
-    {
-    }
+    uint8 a = 1;
+    uint8 b = 4;
 
-    printf("end main\n");
+    uint8 c = a|b;
+
+    printf("%d\n",c);
+
 }
