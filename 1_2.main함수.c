@@ -1,5 +1,6 @@
 /*
 1.
+main함수 적을때
 int main(void)
 int main()
 void main(void)
